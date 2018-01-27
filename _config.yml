@@ -1,0 +1,155 @@
+# Hexo Configuration
+## Docs: https://hexo.io/docs/configuration.html
+## Source: https://github.com/hexojs/hexo/
+
+# Site
+title: 辐射工作站
+#title: Lin's studio
+subtitle: 一面科技，一面生活
+description: 
+author: YX Lin
+language: zh-Hans
+timezone:
+email: linyuxuanlin52@gmail.com
+keywords: "未编辑"
+
+# URL
+## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
+url: https://radiastu.com
+root: /
+permalink: :year/:month/:day/:title/
+permalink_defaults:
+
+# Directory
+source_dir: source
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+i18n_dir: :lang
+skip_render:
+
+# Writing
+new_post_name: :title.md # File name of new posts
+default_layout: post
+titlecase: false # Transform title into titlecase
+external_link: true # Open external links in new tab
+filename_case: 0
+render_drafts: false
+post_asset_folder: false
+relative_link: false
+future: true
+highlight:
+  enable: true
+  line_number: false
+  auto_detect: true
+  tab_replace: true
+
+# Category & Tag
+default_category: uncategorized
+category_map:
+tag_map:
+
+# Date / Time format
+## Hexo uses Moment.js to parse and display date
+## You can customize the date format as defined in
+## http://momentjs.com/docs/#/displaying/format/
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+
+# Pagination
+## 设置每页显示多少篇文章
+per_page: 10
+pagination_dir: page
+
+# Extensions
+## Plugins: https://hexo.io/plugins/
+## Themes: https://hexo.io/themes/
+theme: nextnew
+
+# Deployment
+## Docs: https://hexo.io/docs/deployment.html
+deploy:
+ type: git
+ repo: 
+  github: https://github.com/linyuxuanlin/linyuxuanlin.github.io.git
+  coding: https://git.coding.net/linyuxuanlin/linyuxuanlin.git
+
+
+
+
+
+
+#social:
+  #GitHub: https://github.com/linyuxuanlin
+  #Linkedin: https://www.linkedin.com/in/%E5%AE%87%E8%BD%A9-%E6%9E%97-b00895117/
+  #email: linyuxuanlin52@gmail.com
+  
+
+
+#social_icons:
+ # enable: true
+  # Icon Mappings
+ # GitHub: github
+ # Linkedin: linkedin
+ # email: email
+
+
+
+avatar: http://upload-images.jianshu.io/upload_images/2218072-6926bfa9ead3e413.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
+# swiftype_key: Xts6BVJc2owYFS9pk5RQ
+
+
+
+# 自动生成sitemap
+
+sitemap:
+    path: sitemap.xml
+baidusitemap:
+    path: baidusitemap.xml
+
+#algolia:
+ # applicationID: NVLGKIMOEK
+  #apiKey: b2de8f6812c3b03ab8897615be575414
+  #adminApiKey: 9a3abaf1e05c16bf7a7ddd2bdc7856ff
+  #indexName: linstudio
+  #chunkSize: 5000    
+
+
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
+
+#hexo-douban 失败
+douban:
+  user: lin
+  book:
+    title: 阅读
+    quote: 记录
+  #movie:
+   #title: 我的电影
+   # quote: 2017年，我使用<a href="https://www.douban.com/people/mythsman/" target="_blank">豆瓣</a>记录我看的电影。
+
+live2d:
+  model: koharu
+  #tororo 猫
+  #wanko 狗
+  width: 150 # The width of your model. default: 150
+  height: 300 # The height of your model. default: 300
+  scaling: 1 # The scaling of the resolution. default: 2
+  opacityDefault: 0.7 # The default opacity. default: 0.7
+  opacityHover: 1 # The opacity when hover. default: 1
+  mobileShow: true # Whether to show on mobile devices. default: true
+  mobileScaling: 0.5 # The scaling on mobile. default: 0.5
+  position: right # Which side the model is shown at. default: right
+  horizontalOffset: 0 # The horizontal offset. default: 0
+  verticalOffset: -20 # The offset of the bottom. default: -20
+  id: live2dcanvas # The ID of the live2d element. default: live2dcanvas
+  deviceJsSource: local # The source of the current-device script. default: local
+
+
+
+
