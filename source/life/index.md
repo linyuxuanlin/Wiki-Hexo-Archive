@@ -1,6 +1,7 @@
 ---
 title: 生活       
 date: {time}
+
 type: "about"
 ---
 
