@@ -196,8 +196,17 @@ live2d:
 &nbsp;
 
 
+---
+
 ## 推荐博客
+[Hexo小书](https://pengloo53.gitbooks.io/hexo/content/)
+
 [Vinson-sheep博客](http://www.vinsongeek.com/)
+
+## 拓展阅读
+[Hexo小书](https://pengloo53.gitbooks.io/hexo/content/)
+[关于 Hexo 的若干问题](http://bubkoo.com/2013/12/16/hexo-issure/)
+
 
 ## 结尾
 希望以上的教程能帮到你~
