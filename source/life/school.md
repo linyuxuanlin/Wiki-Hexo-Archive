@@ -12,6 +12,17 @@ type: "about"
 > `学校` 空山新雨后
 
 &nbsp; 
+![]( http://ovp6a4f6u.bkt.clouddn.com/WechatIMG229.jpeg)
+
+> `学校` 立体感
+
+&nbsp; 
+![]( http://ovp6a4f6u.bkt.clouddn.com/WechatIMG230.jpeg)
+
+> `学校` 花开
+
+
+&nbsp; 
 ![1](http://ovp6a4f6u.bkt.clouddn.com/17%E5%B9%B412%E6%9C%883.jpg)
 
 > `学校` 芦苇
