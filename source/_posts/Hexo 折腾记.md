@@ -237,15 +237,9 @@ show_date_time();
 
 &nbsp;
 
----
-
 ## 推荐博客
-
-[Vinson-sheep博客](http://www.vinsongeek.com/)
-
-## 拓展阅读
 [Hexo小书](https://pengloo53.gitbooks.io/hexo/content/)
-[关于 Hexo 的若干问题](http://bubkoo.com/2013/12/16/hexo-issure/)
+[Vinson-sheep博客](http://www.vinsongeek.com/)
 
 ## 结尾
 希望以上的教程能帮到你~
