@@ -344,48 +344,6 @@
   </entry>
   
   <entry>
-    <title>MacOS 配置 Hexo 一键更新</title>
-    <link href="https://radiastu.com/2017/12/05/%E9%85%8D%E7%BD%AE%20hexo%20%E4%B8%80%E9%94%AE%E6%9B%B4%E6%96%B0%E6%B5%81%E7%A8%8B/"/>
-    <id>https://radiastu.com/2017/12/05/配置 hexo 一键更新流程/</id>
-    <published>2017-12-04T16:00:00.000Z</published>
-    <updated>2018-01-27T10:33:22.000Z</updated>
-    
-    <content type="html"><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><p>众所周知，在Pages上写文章，写完之了后，需要在git命令行先生成，再部署。<br>缩减版的指令是这样的：<br><figure class="highlight ebnf"><table><tr><td class="code"><pre><div class="line"><span class="attribute">hexo g</span></div><div class="line">hexo d</div></pre></td></tr></table></figure></p>
-<p>再缩减，成了这样：</p>
-<figure class="highlight ebnf"><table><tr><td class="code"><pre><div class="line"><span class="attribute">hexo d -g</span></div></pre></td></tr></table></figure>
-<p>可是我们还想偷懒！有没有更简单的方法呢？</p>
-<a id="more"></a>
-<p>MacOS下有个神一般的应用，叫Automator，最近很流行的workflow就是由这个来的。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2218072-574b06a28b68ccd1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-07-01 下午4.43.40.png"><br>它能然你自定义工作流程，以完成一些重复而无脑的操作。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2218072-384c3ed576b6e193.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-07-01 下午4.48.16.png"></p>
-<p>本文以一键更新Hexo为例，简略介绍一下Automator的用法。</p>
-<h1 id="一键更新Hexo"><a href="#一键更新Hexo" class="headerlink" title="一键更新Hexo"></a>一键更新Hexo</h1><h2 id="打开终端类"><a href="#打开终端类" class="headerlink" title="打开终端类"></a>打开终端类</h2><p>因为我用的是iTerm，所以下图直接打开它，如果是别的终端就选那个<br><img src="http://upload-images.jianshu.io/upload_images/2218072-e5ea94bbd758b6f3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-07-01 下午4.52.18.png"></p>
-<h2 id="控制键盘输入hexo-d-g"><a href="#控制键盘输入hexo-d-g" class="headerlink" title="控制键盘输入hexo d -g"></a>控制键盘输入<code>hexo d -g</code></h2><p><img src="http://upload-images.jianshu.io/upload_images/2218072-214a9d78a5d49b40.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-07-01 下午4.56.00.png"><br>找到<code>执行AppleScript</code>，把以下代码复制进框里：<br><figure class="highlight applescript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">on</span> <span class="built_in">run</span> &#123;input, parameters&#125;</div><div class="line">true<span class="comment">--</span></div><div class="line">true<span class="keyword">set</span> timeoutSeconds <span class="keyword">to</span> <span class="number">0</span></div><div class="line">true<span class="keyword">set</span> uiScript <span class="keyword">to</span> <span class="string">"keystroke \"hexo d -g</span></div><div class="line"></div><div class="line">\" " <span class="comment">--Mark，注意这行代码</span></div><div class="line">true<span class="keyword">my</span> doWithTimeout(uiScript, timeoutSeconds)</div><div class="line"><span class="built_in">	return</span> input</div><div class="line"><span class="keyword">end</span> <span class="built_in">run</span></div><div class="line"></div><div class="line"><span class="keyword">on</span> doWithTimeout(uiScript, timeoutSeconds)</div><div class="line">true<span class="keyword">set</span> endDate <span class="keyword">to</span> (<span class="built_in">current date</span>) + timeoutSeconds</div><div class="line">true<span class="keyword">repeat</span></div><div class="line">truetrue<span class="keyword">try</span></div><div class="line">truetruetrue<span class="built_in">run script</span> <span class="string">"tell application \"System Events\"</span></div><div class="line">" &amp; uiScript &amp; <span class="string">"</span></div><div class="line">end tell"</div><div class="line">truetruetrue<span class="keyword">exit</span> <span class="keyword">repeat</span></div><div class="line">truetrue<span class="keyword">on</span> <span class="keyword">error</span> errorMessage</div><div class="line">truetruetrue<span class="keyword">if</span> ((<span class="built_in">current date</span>) &gt; endDate) <span class="keyword">then</span></div><div class="line">truetruetruetrue<span class="keyword">error</span> <span class="string">"Can not "</span> &amp; uiScript</div><div class="line">truetruetrue<span class="keyword">end</span> <span class="keyword">if</span></div><div class="line">truetrue<span class="keyword">end</span> <span class="keyword">try</span></div><div class="line">true<span class="keyword">end</span> <span class="keyword">repeat</span></div><div class="line"><span class="keyword">end</span> doWithTimeout</div></pre></td></tr></table></figure></p>
-<h2 id="完成！"><a href="#完成！" class="headerlink" title="完成！"></a>完成！</h2><p>先打开终端，输入<code>cd 博客位置</code>(这一操作不自动，因为只需要重复一次)。<br>单击<code>运行</code>按钮或者<code>cmd+R</code>，自动生成&amp;部署成功！</p>
-<h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><p>并不只有这个玩法，你也可以加一句<code>hexo s</code>进去试试，或者尝试别的玩法。<br>只有你想不到，没有Automator做不到的~</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;众所周知，在Pages上写文章，写完之了后，需要在git命令行先生成，再部署。&lt;br&gt;缩减版的指令是这样的：&lt;br&gt;&lt;figure class=&quot;highlight ebnf&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;hexo g&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;hexo d&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;再缩减，成了这样：&lt;/p&gt;
-&lt;figure class=&quot;highlight ebnf&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;hexo d -g&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;可是我们还想偷懒！有没有更简单的方法呢？&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="技巧" scheme="https://radiastu.com/categories/%E6%8A%80%E5%B7%A7/"/>
-    
-    
-      <category term="Hexo" scheme="https://radiastu.com/tags/Hexo/"/>
-    
-      <category term="技巧" scheme="https://radiastu.com/tags/%E6%8A%80%E5%B7%A7/"/>
-    
-      <category term="MacOS" scheme="https://radiastu.com/tags/MacOS/"/>
-    
-  </entry>
-  
-  <entry>
     <title>用 Pages 搭建单页面网站</title>
     <link href="https://radiastu.com/2017/12/05/Pages%20%E5%8D%95%E9%A1%B5%E9%9D%A2/"/>
     <id>https://radiastu.com/2017/12/05/Pages 单页面/</id>
@@ -450,6 +408,48 @@
   </entry>
   
   <entry>
+    <title>MacOS 配置 Hexo 一键更新</title>
+    <link href="https://radiastu.com/2017/12/05/%E9%85%8D%E7%BD%AE%20hexo%20%E4%B8%80%E9%94%AE%E6%9B%B4%E6%96%B0%E6%B5%81%E7%A8%8B/"/>
+    <id>https://radiastu.com/2017/12/05/配置 hexo 一键更新流程/</id>
+    <published>2017-12-04T16:00:00.000Z</published>
+    <updated>2018-01-27T10:33:22.000Z</updated>
+    
+    <content type="html"><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><p>众所周知，在Pages上写文章，写完之了后，需要在git命令行先生成，再部署。<br>缩减版的指令是这样的：<br><figure class="highlight ebnf"><table><tr><td class="code"><pre><div class="line"><span class="attribute">hexo g</span></div><div class="line">hexo d</div></pre></td></tr></table></figure></p>
+<p>再缩减，成了这样：</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><div class="line"><span class="attribute">hexo d -g</span></div></pre></td></tr></table></figure>
+<p>可是我们还想偷懒！有没有更简单的方法呢？</p>
+<a id="more"></a>
+<p>MacOS下有个神一般的应用，叫Automator，最近很流行的workflow就是由这个来的。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2218072-574b06a28b68ccd1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-07-01 下午4.43.40.png"><br>它能然你自定义工作流程，以完成一些重复而无脑的操作。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2218072-384c3ed576b6e193.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-07-01 下午4.48.16.png"></p>
+<p>本文以一键更新Hexo为例，简略介绍一下Automator的用法。</p>
+<h1 id="一键更新Hexo"><a href="#一键更新Hexo" class="headerlink" title="一键更新Hexo"></a>一键更新Hexo</h1><h2 id="打开终端类"><a href="#打开终端类" class="headerlink" title="打开终端类"></a>打开终端类</h2><p>因为我用的是iTerm，所以下图直接打开它，如果是别的终端就选那个<br><img src="http://upload-images.jianshu.io/upload_images/2218072-e5ea94bbd758b6f3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-07-01 下午4.52.18.png"></p>
+<h2 id="控制键盘输入hexo-d-g"><a href="#控制键盘输入hexo-d-g" class="headerlink" title="控制键盘输入hexo d -g"></a>控制键盘输入<code>hexo d -g</code></h2><p><img src="http://upload-images.jianshu.io/upload_images/2218072-214a9d78a5d49b40.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-07-01 下午4.56.00.png"><br>找到<code>执行AppleScript</code>，把以下代码复制进框里：<br><figure class="highlight applescript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">on</span> <span class="built_in">run</span> &#123;input, parameters&#125;</div><div class="line">true<span class="comment">--</span></div><div class="line">true<span class="keyword">set</span> timeoutSeconds <span class="keyword">to</span> <span class="number">0</span></div><div class="line">true<span class="keyword">set</span> uiScript <span class="keyword">to</span> <span class="string">"keystroke \"hexo d -g</span></div><div class="line"></div><div class="line">\" " <span class="comment">--Mark，注意这行代码</span></div><div class="line">true<span class="keyword">my</span> doWithTimeout(uiScript, timeoutSeconds)</div><div class="line"><span class="built_in">	return</span> input</div><div class="line"><span class="keyword">end</span> <span class="built_in">run</span></div><div class="line"></div><div class="line"><span class="keyword">on</span> doWithTimeout(uiScript, timeoutSeconds)</div><div class="line">true<span class="keyword">set</span> endDate <span class="keyword">to</span> (<span class="built_in">current date</span>) + timeoutSeconds</div><div class="line">true<span class="keyword">repeat</span></div><div class="line">truetrue<span class="keyword">try</span></div><div class="line">truetruetrue<span class="built_in">run script</span> <span class="string">"tell application \"System Events\"</span></div><div class="line">" &amp; uiScript &amp; <span class="string">"</span></div><div class="line">end tell"</div><div class="line">truetruetrue<span class="keyword">exit</span> <span class="keyword">repeat</span></div><div class="line">truetrue<span class="keyword">on</span> <span class="keyword">error</span> errorMessage</div><div class="line">truetruetrue<span class="keyword">if</span> ((<span class="built_in">current date</span>) &gt; endDate) <span class="keyword">then</span></div><div class="line">truetruetruetrue<span class="keyword">error</span> <span class="string">"Can not "</span> &amp; uiScript</div><div class="line">truetruetrue<span class="keyword">end</span> <span class="keyword">if</span></div><div class="line">truetrue<span class="keyword">end</span> <span class="keyword">try</span></div><div class="line">true<span class="keyword">end</span> <span class="keyword">repeat</span></div><div class="line"><span class="keyword">end</span> doWithTimeout</div></pre></td></tr></table></figure></p>
+<h2 id="完成！"><a href="#完成！" class="headerlink" title="完成！"></a>完成！</h2><p>先打开终端，输入<code>cd 博客位置</code>(这一操作不自动，因为只需要重复一次)。<br>单击<code>运行</code>按钮或者<code>cmd+R</code>，自动生成&amp;部署成功！</p>
+<h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><p>并不只有这个玩法，你也可以加一句<code>hexo s</code>进去试试，或者尝试别的玩法。<br>只有你想不到，没有Automator做不到的~</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;众所周知，在Pages上写文章，写完之了后，需要在git命令行先生成，再部署。&lt;br&gt;缩减版的指令是这样的：&lt;br&gt;&lt;figure class=&quot;highlight ebnf&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;hexo g&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;hexo d&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;再缩减，成了这样：&lt;/p&gt;
+&lt;figure class=&quot;highlight ebnf&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;hexo d -g&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;可是我们还想偷懒！有没有更简单的方法呢？&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="技巧" scheme="https://radiastu.com/categories/%E6%8A%80%E5%B7%A7/"/>
+    
+    
+      <category term="Hexo" scheme="https://radiastu.com/tags/Hexo/"/>
+    
+      <category term="技巧" scheme="https://radiastu.com/tags/%E6%8A%80%E5%B7%A7/"/>
+    
+      <category term="MacOS" scheme="https://radiastu.com/tags/MacOS/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Wight-基于云平台的去线缆化照明系统</title>
     <link href="https://radiastu.com/2017/07/17/Wight/"/>
     <id>https://radiastu.com/2017/07/17/Wight/</id>
@@ -480,6 +480,8 @@
       <category term="科技" scheme="https://radiastu.com/categories/%E7%A7%91%E6%8A%80/"/>
     
     
+      <category term="教程" scheme="https://radiastu.com/tags/%E6%95%99%E7%A8%8B/"/>
+    
       <category term="3D打印" scheme="https://radiastu.com/tags/3D%E6%89%93%E5%8D%B0/"/>
     
       <category term="作品" scheme="https://radiastu.com/tags/%E4%BD%9C%E5%93%81/"/>
@@ -487,8 +489,6 @@
       <category term="Arduino" scheme="https://radiastu.com/tags/Arduino/"/>
     
       <category term="C++" scheme="https://radiastu.com/tags/C/"/>
-    
-      <category term="教程" scheme="https://radiastu.com/tags/%E6%95%99%E7%A8%8B/"/>
     
   </entry>
   
@@ -656,6 +656,8 @@
       <category term="科技" scheme="https://radiastu.com/categories/%E7%A7%91%E6%8A%80/"/>
     
     
+      <category term="教程" scheme="https://radiastu.com/tags/%E6%95%99%E7%A8%8B/"/>
+    
       <category term="3D打印" scheme="https://radiastu.com/tags/3D%E6%89%93%E5%8D%B0/"/>
     
       <category term="作品" scheme="https://radiastu.com/tags/%E4%BD%9C%E5%93%81/"/>
@@ -663,8 +665,6 @@
       <category term="Arduino" scheme="https://radiastu.com/tags/Arduino/"/>
     
       <category term="C++" scheme="https://radiastu.com/tags/C/"/>
-    
-      <category term="教程" scheme="https://radiastu.com/tags/%E6%95%99%E7%A8%8B/"/>
     
   </entry>
   
@@ -774,13 +774,13 @@
       <category term="科技" scheme="https://radiastu.com/categories/%E7%A7%91%E6%8A%80/"/>
     
     
+      <category term="教程" scheme="https://radiastu.com/tags/%E6%95%99%E7%A8%8B/"/>
+    
       <category term="作品" scheme="https://radiastu.com/tags/%E4%BD%9C%E5%93%81/"/>
     
       <category term="Arduino" scheme="https://radiastu.com/tags/Arduino/"/>
     
       <category term="C++" scheme="https://radiastu.com/tags/C/"/>
-    
-      <category term="教程" scheme="https://radiastu.com/tags/%E6%95%99%E7%A8%8B/"/>
     
   </entry>
   
@@ -818,11 +818,11 @@
       <category term="科技" scheme="https://radiastu.com/categories/%E7%A7%91%E6%8A%80/"/>
     
     
+      <category term="教程" scheme="https://radiastu.com/tags/%E6%95%99%E7%A8%8B/"/>
+    
       <category term="Arduino" scheme="https://radiastu.com/tags/Arduino/"/>
     
       <category term="C++" scheme="https://radiastu.com/tags/C/"/>
-    
-      <category term="教程" scheme="https://radiastu.com/tags/%E6%95%99%E7%A8%8B/"/>
     
   </entry>
   
@@ -882,6 +882,8 @@
       <category term="科技" scheme="https://radiastu.com/categories/%E7%A7%91%E6%8A%80/"/>
     
     
+      <category term="教程" scheme="https://radiastu.com/tags/%E6%95%99%E7%A8%8B/"/>
+    
       <category term="3D打印" scheme="https://radiastu.com/tags/3D%E6%89%93%E5%8D%B0/"/>
     
       <category term="作品" scheme="https://radiastu.com/tags/%E4%BD%9C%E5%93%81/"/>
@@ -889,8 +891,6 @@
       <category term="Arduino" scheme="https://radiastu.com/tags/Arduino/"/>
     
       <category term="C++" scheme="https://radiastu.com/tags/C/"/>
-    
-      <category term="教程" scheme="https://radiastu.com/tags/%E6%95%99%E7%A8%8B/"/>
     
   </entry>
   
@@ -956,11 +956,11 @@
       <category term="科技" scheme="https://radiastu.com/categories/%E7%A7%91%E6%8A%80/"/>
     
     
+      <category term="教程" scheme="https://radiastu.com/tags/%E6%95%99%E7%A8%8B/"/>
+    
       <category term="Arduino" scheme="https://radiastu.com/tags/Arduino/"/>
     
       <category term="C++" scheme="https://radiastu.com/tags/C/"/>
-    
-      <category term="教程" scheme="https://radiastu.com/tags/%E6%95%99%E7%A8%8B/"/>
     
       <category term="改装" scheme="https://radiastu.com/tags/%E6%94%B9%E8%A3%85/"/>
     

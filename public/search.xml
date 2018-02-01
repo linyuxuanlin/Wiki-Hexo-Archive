@@ -72,19 +72,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[MacOS 配置 Hexo 一键更新]]></title>
-    <url>%2F2017%2F12%2F05%2F%E9%85%8D%E7%BD%AE%20hexo%20%E4%B8%80%E9%94%AE%E6%9B%B4%E6%96%B0%E6%B5%81%E7%A8%8B%2F</url>
-    <content type="text"><![CDATA[众所周知，在Pages上写文章，写完之了后，需要在git命令行先生成，再部署。缩减版的指令是这样的：hexo ghexo d 再缩减，成了这样： hexo d -g 可是我们还想偷懒！有没有更简单的方法呢？ MacOS下有个神一般的应用，叫Automator，最近很流行的workflow就是由这个来的。 它能然你自定义工作流程，以完成一些重复而无脑的操作。 本文以一键更新Hexo为例，简略介绍一下Automator的用法。 一键更新Hexo打开终端类因为我用的是iTerm，所以下图直接打开它，如果是别的终端就选那个 控制键盘输入hexo d -g找到执行AppleScript，把以下代码复制进框里：on run &#123;input, parameters&#125;true--trueset timeoutSeconds to 0trueset uiScript to "keystroke \"hexo d -g\" " --Mark，注意这行代码truemy doWithTimeout(uiScript, timeoutSeconds) return inputend runon doWithTimeout(uiScript, timeoutSeconds)trueset endDate to (current date) + timeoutSecondstruerepeattruetruetrytruetruetruerun script "tell application \"System Events\"" &amp; uiScript &amp; "end tell"truetruetrueexit repeattruetrueon error errorMessagetruetruetrueif ((current date) &gt; endDate) thentruetruetruetrueerror "Can not " &amp; uiScripttruetruetrueend iftruetrueend trytrueend repeatend doWithTimeout 完成！先打开终端，输入cd 博客位置(这一操作不自动，因为只需要重复一次)。单击运行按钮或者cmd+R，自动生成&amp;部署成功！ 拓展并不只有这个玩法，你也可以加一句hexo s进去试试，或者尝试别的玩法。只有你想不到，没有Automator做不到的~]]></content>
-      <categories>
-        <category>技巧</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>技巧</tag>
-        <tag>MacOS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[用 Pages 搭建单页面网站]]></title>
     <url>%2F2017%2F12%2F05%2FPages%20%E5%8D%95%E9%A1%B5%E9%9D%A2%2F</url>
     <content type="text"><![CDATA[本教程介绍了一种搭建简易网站的方法。由jekyll强力驱动，托管于GitHub Pages。可以用作简历、项目文档、about me，等等，只要你想得到。预览：单页面测试 GitHub Pages的优势： 简易，5分钟即可搭建完成。 可以不需要买域名和服务器。 GitHub Pages不用担心访问流量和带宽。 丰富的主题选择和 自定义 。 那我们开始吧~ 1.GitHub仓库的建立和设置首先，建立一个新的GitHub仓库： (原有仓库的任何文档都可以变成jekyll页面，所以说可以愉快地编写项目文档) 建好的仓库如下图： 点击Settings，移动到下方，开启Pages服务： 进入主题选择的界面。我选了一个看起来挺漂亮的modernist主题，然后点击select： 之后返回settings，发现网站已经生成了： 网址默认是https://github用户名.github.io/仓库名字(也是网站的名字)(因为我有自己的域名，所以直接生成一个二级域名。) 点击访问： 2.编辑网站你会发现，刚刚生成的网站的内容是这个仓库的README文档。所以，最简单的，直接修改README的内容就可以了。 回到仓库的页面，点击README.md 点击铅笔的图标进行修改： 保存后隔一两分钟，再访问你的网站： 成功！3.拓展 其实，不只是能单页面，你也可以在主页面里创建一个新的页面，实现多页面。 或者，你看着这些文字很讨厌： 想重新定制一下，变成这样？ 请听下回分解~]]></content>
@@ -98,6 +85,19 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[MacOS 配置 Hexo 一键更新]]></title>
+    <url>%2F2017%2F12%2F05%2F%E9%85%8D%E7%BD%AE%20hexo%20%E4%B8%80%E9%94%AE%E6%9B%B4%E6%96%B0%E6%B5%81%E7%A8%8B%2F</url>
+    <content type="text"><![CDATA[众所周知，在Pages上写文章，写完之了后，需要在git命令行先生成，再部署。缩减版的指令是这样的：hexo ghexo d 再缩减，成了这样： hexo d -g 可是我们还想偷懒！有没有更简单的方法呢？ MacOS下有个神一般的应用，叫Automator，最近很流行的workflow就是由这个来的。 它能然你自定义工作流程，以完成一些重复而无脑的操作。 本文以一键更新Hexo为例，简略介绍一下Automator的用法。 一键更新Hexo打开终端类因为我用的是iTerm，所以下图直接打开它，如果是别的终端就选那个 控制键盘输入hexo d -g找到执行AppleScript，把以下代码复制进框里：on run &#123;input, parameters&#125;true--trueset timeoutSeconds to 0trueset uiScript to "keystroke \"hexo d -g\" " --Mark，注意这行代码truemy doWithTimeout(uiScript, timeoutSeconds) return inputend runon doWithTimeout(uiScript, timeoutSeconds)trueset endDate to (current date) + timeoutSecondstruerepeattruetruetrytruetruetruerun script "tell application \"System Events\"" &amp; uiScript &amp; "end tell"truetruetrueexit repeattruetrueon error errorMessagetruetruetrueif ((current date) &gt; endDate) thentruetruetruetrueerror "Can not " &amp; uiScripttruetruetrueend iftruetrueend trytrueend repeatend doWithTimeout 完成！先打开终端，输入cd 博客位置(这一操作不自动，因为只需要重复一次)。单击运行按钮或者cmd+R，自动生成&amp;部署成功！ 拓展并不只有这个玩法，你也可以加一句hexo s进去试试，或者尝试别的玩法。只有你想不到，没有Automator做不到的~]]></content>
+      <categories>
+        <category>技巧</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>技巧</tag>
+        <tag>MacOS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Wight-基于云平台的去线缆化照明系统]]></title>
     <url>%2F2017%2F07%2F17%2FWight%2F</url>
     <content type="text"><![CDATA[这是在hack.init()中做出来的撸代码、3D建模、调试各种乱七八糟的bug、等待打印、展示&amp;演讲，花了20多个小时欲了解更多，请展开下文~ 简介简单介绍一下，这个项目主要是用于乡村偏远地区的路灯照明系统模型有点抽象，有人说它像火箭，但其实它是一杆路灯。。。 项目的创新点： 太阳能供电。自给自足（经查阅详细资料，太阳能发电量足以点亮LED） 去线缆化。为偏远山区不方便铺线缆提供便利 智能算法。检测到夜晚，自动开灯；检测到人或车辆经过，提高LED亮度 云平台统一控制。用的是GSM主控，可以批量远程调试 拓展性。对个别有自定义照明需求的特殊用户提供各种自定义的功能 代码基于intorobot的云平台，已开源：代码 #define BUTTONS_address "channel/widget4_0/cmd/control" //开关命令#define LIGHT_STATUS_address "channel/widget4_0/data/light"//开关状态#define ITENSITY_DATA_address "channel/widget4_0/data/lightsensor"#define LEDPIN1 D1 //定义灯泡控制引脚#define LEDPIN2 D2#define LEDPIN3 D3#define LEDPIN4 D5#define CHECKIN1 A0#define CHECKIN2 D4int autostate = 2;int light_state = 2;void buttons_function(uint8_t *payload, uint32_t len)//自动&amp;浇水按钮&#123;trueuint8_t SwitchKey;trueuint8_t SwitchKey2;trueaJsonClass aJson;trueaJsonObject *root = aJson.parse((char *)payload);trueif(root == NULL)true&#123;truetrueaJson.deleteItem(root);truetruereturn;true&#125;trueaJsonObject *_switch = aJson.getObjectItem(root, "mode");trueif(_switch != NULL)true&#123;truetrueSwitchKey = atoi(_switch-&gt;valuestring);truetrueif(SwitchKey)truetrue&#123;truetruetrueSerialUSB.println("auto on");truetruetrueautostate=1;truetruetrue IntoRobot.publish(LIGHT_STATUS_address,"1");truetrue&#125;truetrueelsetruetrue&#123;truetruetrueSerialUSB.println("auto off");truetruetrueautostate=0;truetruetrue IntoRobot.publish(LIGHT_STATUS_address,"0");truetrue&#125;true&#125;trueaJsonObject *_switch2 = aJson.getObjectItem(root, "manual");trueif(_switch2 != NULL)true&#123;truetrueSwitchKey2 = atoi(_switch2-&gt;valuestring);truetrueif(SwitchKey2)truetrue&#123;truetruetrueSerialUSB.println("manual on");truetruetruelight_state=1;truetruetrue IntoRobot.publish(LIGHT_STATUS_address,"1");truetrue&#125;truetrueelsetruetrue&#123;truetruetrueSerialUSB.println("manual off");truetruetruelight_state=0;truetruetrue IntoRobot.publish(LIGHT_STATUS_address,"0");truetrue&#125;true&#125;trueelsetrue&#123;true&#125;trueaJson.deleteItem(root);&#125;void lightup()&#123;truedigitalWrite(LEDPIN1, HIGH); // 打开灯泡truedigitalWrite(LEDPIN2, HIGH); // 打开灯泡truedigitalWrite(LEDPIN3, HIGH); // 打开灯泡truedigitalWrite(LEDPIN4, HIGH); // 打开灯泡&#125;void light_half_up()&#123;trueanalogWrite(LEDPIN1, 80); // 打开灯泡trueanalogWrite(LEDPIN2, 80); // 打开灯泡trueanalogWrite(LEDPIN3, 80); // 打开灯泡trueanalogWrite(LEDPIN4, 80); // 打开灯泡&#125;void lightdown()&#123;truedigitalWrite(LEDPIN1, LOW);truedigitalWrite(LEDPIN2, LOW);truedigitalWrite(LEDPIN3, LOW);truedigitalWrite(LEDPIN4, LOW);&#125;int getlight()&#123;trueint k = analogRead(CHECKIN1);trueSerialUSB.println(k);truereturn k;&#125;int get_IR_data()&#123;trueint b = digitalRead(CHECKIN2);trueSerialUSB.println(b);truereturn b;&#125;void automode()&#123;trueif(getlight()&gt;=400)true&#123;true IntoRobot.publish(LIGHT_STATUS_address,"1");truetrueif (get_IR_data()==0)truetruelightup();truetrueelsetruetruelight_half_up();true&#125;trueelsetrue&#123;trueIntoRobot.publish(LIGHT_STATUS_address,"0");truelightdown();true&#125;&#125;void HUMIDITY_print_function(uint8_t *payload, uint32_t len)&#123;&#125;// IntoRobot.publish(LIGHT_STATUS_address,"1");// IntoRobot.publish(LIGHT_STATUS_address,"0");void setup()&#123; pinMode(D4,INPUT);trueSerialUSB.begin(115200);trueSerialUSB.println("hello world");truepinMode(LEDPIN1, OUTPUT); //初始化truepinMode(LEDPIN2, OUTPUT); //初始化truepinMode(LEDPIN3, OUTPUT); //初始化truepinMode(LEDPIN4, OUTPUT); //初始化true//设备接收云平台的灯开关命令trueIntoRobot.subscribe(BUTTONS_address,NULL,buttons_function);trueIntoRobot.subscribe(ITENSITY_DATA_address,NULL,HUMIDITY_print_function);&#125;void loop()&#123; int a =map(getlight() ,0,1024,100,0); IntoRobot.publish(LIGHT,a); SerialUSB.println(getlight());trueif(autostate==0)true&#123;truetrueif(light_state ==1)truetruelightup();truetrueelsetruetruelightdown(); true&#125;trueelse if (autostate==1)true&#123;truetrueSerialUSB.println("state=1");truetrueautomode();true&#125;truedelay(100);&#125; 模型用的是123D建模。tips：熟悉快捷键的话，建模速度会很快~因为现场时间不够，随便画了一个总的模型分底座，顶部和中间的部分然后打印出来模型下载]]></content>
@@ -105,11 +105,11 @@
         <category>科技</category>
       </categories>
       <tags>
+        <tag>教程</tag>
         <tag>3D打印</tag>
         <tag>作品</tag>
         <tag>Arduino</tag>
         <tag>C++</tag>
-        <tag>教程</tag>
       </tags>
   </entry>
   <entry>
@@ -158,11 +158,11 @@
         <category>科技</category>
       </categories>
       <tags>
+        <tag>教程</tag>
         <tag>3D打印</tag>
         <tag>作品</tag>
         <tag>Arduino</tag>
         <tag>C++</tag>
-        <tag>教程</tag>
       </tags>
   </entry>
   <entry>
@@ -184,10 +184,10 @@
         <category>科技</category>
       </categories>
       <tags>
+        <tag>教程</tag>
         <tag>作品</tag>
         <tag>Arduino</tag>
         <tag>C++</tag>
-        <tag>教程</tag>
       </tags>
   </entry>
   <entry>
@@ -198,9 +198,9 @@
         <category>科技</category>
       </categories>
       <tags>
+        <tag>教程</tag>
         <tag>Arduino</tag>
         <tag>C++</tag>
-        <tag>教程</tag>
       </tags>
   </entry>
   <entry>
@@ -222,11 +222,11 @@
         <category>科技</category>
       </categories>
       <tags>
+        <tag>教程</tag>
         <tag>3D打印</tag>
         <tag>作品</tag>
         <tag>Arduino</tag>
         <tag>C++</tag>
-        <tag>教程</tag>
       </tags>
   </entry>
   <entry>
@@ -237,9 +237,9 @@
         <category>科技</category>
       </categories>
       <tags>
+        <tag>教程</tag>
         <tag>Arduino</tag>
         <tag>C++</tag>
-        <tag>教程</tag>
         <tag>改装</tag>
       </tags>
   </entry>
@@ -284,10 +284,10 @@
         <category>科技</category>
       </categories>
       <tags>
+        <tag>教程</tag>
         <tag>作品</tag>
         <tag>Arduino</tag>
         <tag>C++</tag>
-        <tag>教程</tag>
       </tags>
   </entry>
   <entry>
@@ -298,10 +298,10 @@
         <category>科技</category>
       </categories>
       <tags>
+        <tag>教程</tag>
         <tag>作品</tag>
         <tag>Arduino</tag>
         <tag>C++</tag>
-        <tag>教程</tag>
       </tags>
   </entry>
   <entry>
@@ -324,11 +324,11 @@
         <category>科技</category>
       </categories>
       <tags>
+        <tag>教程</tag>
         <tag>3D打印</tag>
         <tag>作品</tag>
         <tag>Arduino</tag>
         <tag>C++</tag>
-        <tag>教程</tag>
       </tags>
   </entry>
   <entry>
