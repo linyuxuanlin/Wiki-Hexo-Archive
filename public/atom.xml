@@ -344,6 +344,48 @@
   </entry>
   
   <entry>
+    <title>MacOS 配置 Hexo 一键更新</title>
+    <link href="https://radiastu.com/2017/12/05/%E9%85%8D%E7%BD%AE%20hexo%20%E4%B8%80%E9%94%AE%E6%9B%B4%E6%96%B0%E6%B5%81%E7%A8%8B/"/>
+    <id>https://radiastu.com/2017/12/05/配置 hexo 一键更新流程/</id>
+    <published>2017-12-04T16:00:00.000Z</published>
+    <updated>2018-01-27T10:33:22.000Z</updated>
+    
+    <content type="html"><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><p>众所周知，在Pages上写文章，写完之了后，需要在git命令行先生成，再部署。<br>缩减版的指令是这样的：<br><figure class="highlight ebnf"><table><tr><td class="code"><pre><div class="line"><span class="attribute">hexo g</span></div><div class="line">hexo d</div></pre></td></tr></table></figure></p>
+<p>再缩减，成了这样：</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><div class="line"><span class="attribute">hexo d -g</span></div></pre></td></tr></table></figure>
+<p>可是我们还想偷懒！有没有更简单的方法呢？</p>
+<a id="more"></a>
+<p>MacOS下有个神一般的应用，叫Automator，最近很流行的workflow就是由这个来的。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2218072-574b06a28b68ccd1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-07-01 下午4.43.40.png"><br>它能然你自定义工作流程，以完成一些重复而无脑的操作。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2218072-384c3ed576b6e193.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-07-01 下午4.48.16.png"></p>
+<p>本文以一键更新Hexo为例，简略介绍一下Automator的用法。</p>
+<h1 id="一键更新Hexo"><a href="#一键更新Hexo" class="headerlink" title="一键更新Hexo"></a>一键更新Hexo</h1><h2 id="打开终端类"><a href="#打开终端类" class="headerlink" title="打开终端类"></a>打开终端类</h2><p>因为我用的是iTerm，所以下图直接打开它，如果是别的终端就选那个<br><img src="http://upload-images.jianshu.io/upload_images/2218072-e5ea94bbd758b6f3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-07-01 下午4.52.18.png"></p>
+<h2 id="控制键盘输入hexo-d-g"><a href="#控制键盘输入hexo-d-g" class="headerlink" title="控制键盘输入hexo d -g"></a>控制键盘输入<code>hexo d -g</code></h2><p><img src="http://upload-images.jianshu.io/upload_images/2218072-214a9d78a5d49b40.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-07-01 下午4.56.00.png"><br>找到<code>执行AppleScript</code>，把以下代码复制进框里：<br><figure class="highlight applescript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">on</span> <span class="built_in">run</span> &#123;input, parameters&#125;</div><div class="line">true<span class="comment">--</span></div><div class="line">true<span class="keyword">set</span> timeoutSeconds <span class="keyword">to</span> <span class="number">0</span></div><div class="line">true<span class="keyword">set</span> uiScript <span class="keyword">to</span> <span class="string">"keystroke \"hexo d -g</span></div><div class="line"></div><div class="line">\" " <span class="comment">--Mark，注意这行代码</span></div><div class="line">true<span class="keyword">my</span> doWithTimeout(uiScript, timeoutSeconds)</div><div class="line"><span class="built_in">	return</span> input</div><div class="line"><span class="keyword">end</span> <span class="built_in">run</span></div><div class="line"></div><div class="line"><span class="keyword">on</span> doWithTimeout(uiScript, timeoutSeconds)</div><div class="line">true<span class="keyword">set</span> endDate <span class="keyword">to</span> (<span class="built_in">current date</span>) + timeoutSeconds</div><div class="line">true<span class="keyword">repeat</span></div><div class="line">truetrue<span class="keyword">try</span></div><div class="line">truetruetrue<span class="built_in">run script</span> <span class="string">"tell application \"System Events\"</span></div><div class="line">" &amp; uiScript &amp; <span class="string">"</span></div><div class="line">end tell"</div><div class="line">truetruetrue<span class="keyword">exit</span> <span class="keyword">repeat</span></div><div class="line">truetrue<span class="keyword">on</span> <span class="keyword">error</span> errorMessage</div><div class="line">truetruetrue<span class="keyword">if</span> ((<span class="built_in">current date</span>) &gt; endDate) <span class="keyword">then</span></div><div class="line">truetruetruetrue<span class="keyword">error</span> <span class="string">"Can not "</span> &amp; uiScript</div><div class="line">truetruetrue<span class="keyword">end</span> <span class="keyword">if</span></div><div class="line">truetrue<span class="keyword">end</span> <span class="keyword">try</span></div><div class="line">true<span class="keyword">end</span> <span class="keyword">repeat</span></div><div class="line"><span class="keyword">end</span> doWithTimeout</div></pre></td></tr></table></figure></p>
+<h2 id="完成！"><a href="#完成！" class="headerlink" title="完成！"></a>完成！</h2><p>先打开终端，输入<code>cd 博客位置</code>(这一操作不自动，因为只需要重复一次)。<br>单击<code>运行</code>按钮或者<code>cmd+R</code>，自动生成&amp;部署成功！</p>
+<h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><p>并不只有这个玩法，你也可以加一句<code>hexo s</code>进去试试，或者尝试别的玩法。<br>只有你想不到，没有Automator做不到的~</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;众所周知，在Pages上写文章，写完之了后，需要在git命令行先生成，再部署。&lt;br&gt;缩减版的指令是这样的：&lt;br&gt;&lt;figure class=&quot;highlight ebnf&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;hexo g&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;hexo d&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;再缩减，成了这样：&lt;/p&gt;
+&lt;figure class=&quot;highlight ebnf&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;hexo d -g&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;可是我们还想偷懒！有没有更简单的方法呢？&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="技巧" scheme="https://radiastu.com/categories/%E6%8A%80%E5%B7%A7/"/>
+    
+    
+      <category term="Hexo" scheme="https://radiastu.com/tags/Hexo/"/>
+    
+      <category term="技巧" scheme="https://radiastu.com/tags/%E6%8A%80%E5%B7%A7/"/>
+    
+      <category term="MacOS" scheme="https://radiastu.com/tags/MacOS/"/>
+    
+  </entry>
+  
+  <entry>
     <title>用 Pages 搭建单页面网站</title>
     <link href="https://radiastu.com/2017/12/05/Pages%20%E5%8D%95%E9%A1%B5%E9%9D%A2/"/>
     <id>https://radiastu.com/2017/12/05/Pages 单页面/</id>
@@ -408,48 +450,6 @@
   </entry>
   
   <entry>
-    <title>MacOS 配置 Hexo 一键更新</title>
-    <link href="https://radiastu.com/2017/12/05/%E9%85%8D%E7%BD%AE%20hexo%20%E4%B8%80%E9%94%AE%E6%9B%B4%E6%96%B0%E6%B5%81%E7%A8%8B/"/>
-    <id>https://radiastu.com/2017/12/05/配置 hexo 一键更新流程/</id>
-    <published>2017-12-04T16:00:00.000Z</published>
-    <updated>2018-01-27T10:33:22.000Z</updated>
-    
-    <content type="html"><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><p>众所周知，在Pages上写文章，写完之了后，需要在git命令行先生成，再部署。<br>缩减版的指令是这样的：<br><figure class="highlight ebnf"><table><tr><td class="code"><pre><div class="line"><span class="attribute">hexo g</span></div><div class="line">hexo d</div></pre></td></tr></table></figure></p>
-<p>再缩减，成了这样：</p>
-<figure class="highlight ebnf"><table><tr><td class="code"><pre><div class="line"><span class="attribute">hexo d -g</span></div></pre></td></tr></table></figure>
-<p>可是我们还想偷懒！有没有更简单的方法呢？</p>
-<a id="more"></a>
-<p>MacOS下有个神一般的应用，叫Automator，最近很流行的workflow就是由这个来的。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2218072-574b06a28b68ccd1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-07-01 下午4.43.40.png"><br>它能然你自定义工作流程，以完成一些重复而无脑的操作。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2218072-384c3ed576b6e193.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-07-01 下午4.48.16.png"></p>
-<p>本文以一键更新Hexo为例，简略介绍一下Automator的用法。</p>
-<h1 id="一键更新Hexo"><a href="#一键更新Hexo" class="headerlink" title="一键更新Hexo"></a>一键更新Hexo</h1><h2 id="打开终端类"><a href="#打开终端类" class="headerlink" title="打开终端类"></a>打开终端类</h2><p>因为我用的是iTerm，所以下图直接打开它，如果是别的终端就选那个<br><img src="http://upload-images.jianshu.io/upload_images/2218072-e5ea94bbd758b6f3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-07-01 下午4.52.18.png"></p>
-<h2 id="控制键盘输入hexo-d-g"><a href="#控制键盘输入hexo-d-g" class="headerlink" title="控制键盘输入hexo d -g"></a>控制键盘输入<code>hexo d -g</code></h2><p><img src="http://upload-images.jianshu.io/upload_images/2218072-214a9d78a5d49b40.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-07-01 下午4.56.00.png"><br>找到<code>执行AppleScript</code>，把以下代码复制进框里：<br><figure class="highlight applescript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">on</span> <span class="built_in">run</span> &#123;input, parameters&#125;</div><div class="line">true<span class="comment">--</span></div><div class="line">true<span class="keyword">set</span> timeoutSeconds <span class="keyword">to</span> <span class="number">0</span></div><div class="line">true<span class="keyword">set</span> uiScript <span class="keyword">to</span> <span class="string">"keystroke \"hexo d -g</span></div><div class="line"></div><div class="line">\" " <span class="comment">--Mark，注意这行代码</span></div><div class="line">true<span class="keyword">my</span> doWithTimeout(uiScript, timeoutSeconds)</div><div class="line"><span class="built_in">	return</span> input</div><div class="line"><span class="keyword">end</span> <span class="built_in">run</span></div><div class="line"></div><div class="line"><span class="keyword">on</span> doWithTimeout(uiScript, timeoutSeconds)</div><div class="line">true<span class="keyword">set</span> endDate <span class="keyword">to</span> (<span class="built_in">current date</span>) + timeoutSeconds</div><div class="line">true<span class="keyword">repeat</span></div><div class="line">truetrue<span class="keyword">try</span></div><div class="line">truetruetrue<span class="built_in">run script</span> <span class="string">"tell application \"System Events\"</span></div><div class="line">" &amp; uiScript &amp; <span class="string">"</span></div><div class="line">end tell"</div><div class="line">truetruetrue<span class="keyword">exit</span> <span class="keyword">repeat</span></div><div class="line">truetrue<span class="keyword">on</span> <span class="keyword">error</span> errorMessage</div><div class="line">truetruetrue<span class="keyword">if</span> ((<span class="built_in">current date</span>) &gt; endDate) <span class="keyword">then</span></div><div class="line">truetruetruetrue<span class="keyword">error</span> <span class="string">"Can not "</span> &amp; uiScript</div><div class="line">truetruetrue<span class="keyword">end</span> <span class="keyword">if</span></div><div class="line">truetrue<span class="keyword">end</span> <span class="keyword">try</span></div><div class="line">true<span class="keyword">end</span> <span class="keyword">repeat</span></div><div class="line"><span class="keyword">end</span> doWithTimeout</div></pre></td></tr></table></figure></p>
-<h2 id="完成！"><a href="#完成！" class="headerlink" title="完成！"></a>完成！</h2><p>先打开终端，输入<code>cd 博客位置</code>(这一操作不自动，因为只需要重复一次)。<br>单击<code>运行</code>按钮或者<code>cmd+R</code>，自动生成&amp;部署成功！</p>
-<h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><p>并不只有这个玩法，你也可以加一句<code>hexo s</code>进去试试，或者尝试别的玩法。<br>只有你想不到，没有Automator做不到的~</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;众所周知，在Pages上写文章，写完之了后，需要在git命令行先生成，再部署。&lt;br&gt;缩减版的指令是这样的：&lt;br&gt;&lt;figure class=&quot;highlight ebnf&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;hexo g&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;hexo d&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;再缩减，成了这样：&lt;/p&gt;
-&lt;figure class=&quot;highlight ebnf&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;hexo d -g&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;可是我们还想偷懒！有没有更简单的方法呢？&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="技巧" scheme="https://radiastu.com/categories/%E6%8A%80%E5%B7%A7/"/>
-    
-    
-      <category term="Hexo" scheme="https://radiastu.com/tags/Hexo/"/>
-    
-      <category term="技巧" scheme="https://radiastu.com/tags/%E6%8A%80%E5%B7%A7/"/>
-    
-      <category term="MacOS" scheme="https://radiastu.com/tags/MacOS/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Wight-基于云平台的去线缆化照明系统</title>
     <link href="https://radiastu.com/2017/07/17/Wight/"/>
     <id>https://radiastu.com/2017/07/17/Wight/</id>
@@ -480,15 +480,15 @@
       <category term="科技" scheme="https://radiastu.com/categories/%E7%A7%91%E6%8A%80/"/>
     
     
+      <category term="Arduino" scheme="https://radiastu.com/tags/Arduino/"/>
+    
+      <category term="C++" scheme="https://radiastu.com/tags/C/"/>
+    
       <category term="教程" scheme="https://radiastu.com/tags/%E6%95%99%E7%A8%8B/"/>
     
       <category term="3D打印" scheme="https://radiastu.com/tags/3D%E6%89%93%E5%8D%B0/"/>
     
       <category term="作品" scheme="https://radiastu.com/tags/%E4%BD%9C%E5%93%81/"/>
-    
-      <category term="Arduino" scheme="https://radiastu.com/tags/Arduino/"/>
-    
-      <category term="C++" scheme="https://radiastu.com/tags/C/"/>
     
   </entry>
   
@@ -656,15 +656,15 @@
       <category term="科技" scheme="https://radiastu.com/categories/%E7%A7%91%E6%8A%80/"/>
     
     
+      <category term="Arduino" scheme="https://radiastu.com/tags/Arduino/"/>
+    
+      <category term="C++" scheme="https://radiastu.com/tags/C/"/>
+    
       <category term="教程" scheme="https://radiastu.com/tags/%E6%95%99%E7%A8%8B/"/>
     
       <category term="3D打印" scheme="https://radiastu.com/tags/3D%E6%89%93%E5%8D%B0/"/>
     
       <category term="作品" scheme="https://radiastu.com/tags/%E4%BD%9C%E5%93%81/"/>
-    
-      <category term="Arduino" scheme="https://radiastu.com/tags/Arduino/"/>
-    
-      <category term="C++" scheme="https://radiastu.com/tags/C/"/>
     
   </entry>
   
@@ -774,13 +774,13 @@
       <category term="科技" scheme="https://radiastu.com/categories/%E7%A7%91%E6%8A%80/"/>
     
     
-      <category term="教程" scheme="https://radiastu.com/tags/%E6%95%99%E7%A8%8B/"/>
-    
-      <category term="作品" scheme="https://radiastu.com/tags/%E4%BD%9C%E5%93%81/"/>
-    
       <category term="Arduino" scheme="https://radiastu.com/tags/Arduino/"/>
     
       <category term="C++" scheme="https://radiastu.com/tags/C/"/>
+    
+      <category term="教程" scheme="https://radiastu.com/tags/%E6%95%99%E7%A8%8B/"/>
+    
+      <category term="作品" scheme="https://radiastu.com/tags/%E4%BD%9C%E5%93%81/"/>
     
   </entry>
   
@@ -818,11 +818,11 @@
       <category term="科技" scheme="https://radiastu.com/categories/%E7%A7%91%E6%8A%80/"/>
     
     
-      <category term="教程" scheme="https://radiastu.com/tags/%E6%95%99%E7%A8%8B/"/>
-    
       <category term="Arduino" scheme="https://radiastu.com/tags/Arduino/"/>
     
       <category term="C++" scheme="https://radiastu.com/tags/C/"/>
+    
+      <category term="教程" scheme="https://radiastu.com/tags/%E6%95%99%E7%A8%8B/"/>
     
   </entry>
   
@@ -882,15 +882,15 @@
       <category term="科技" scheme="https://radiastu.com/categories/%E7%A7%91%E6%8A%80/"/>
     
     
+      <category term="Arduino" scheme="https://radiastu.com/tags/Arduino/"/>
+    
+      <category term="C++" scheme="https://radiastu.com/tags/C/"/>
+    
       <category term="教程" scheme="https://radiastu.com/tags/%E6%95%99%E7%A8%8B/"/>
     
       <category term="3D打印" scheme="https://radiastu.com/tags/3D%E6%89%93%E5%8D%B0/"/>
     
       <category term="作品" scheme="https://radiastu.com/tags/%E4%BD%9C%E5%93%81/"/>
-    
-      <category term="Arduino" scheme="https://radiastu.com/tags/Arduino/"/>
-    
-      <category term="C++" scheme="https://radiastu.com/tags/C/"/>
     
   </entry>
   
@@ -956,45 +956,54 @@
       <category term="科技" scheme="https://radiastu.com/categories/%E7%A7%91%E6%8A%80/"/>
     
     
-      <category term="教程" scheme="https://radiastu.com/tags/%E6%95%99%E7%A8%8B/"/>
-    
       <category term="Arduino" scheme="https://radiastu.com/tags/Arduino/"/>
     
       <category term="C++" scheme="https://radiastu.com/tags/C/"/>
+    
+      <category term="教程" scheme="https://radiastu.com/tags/%E6%95%99%E7%A8%8B/"/>
     
       <category term="改装" scheme="https://radiastu.com/tags/%E6%94%B9%E8%A3%85/"/>
     
   </entry>
   
   <entry>
-    <title>淘汰人的从来都是工具，不是年龄</title>
-    <link href="https://radiastu.com/2016/09/14/%E6%B7%98%E6%B1%B0%E4%BA%BA%E7%9A%84%E4%BB%8E%E6%9D%A5%E9%83%BD%E6%98%AF%E5%B7%A5%E5%85%B7%EF%BC%8C%E4%B8%8D%E6%98%AF%E5%B9%B4%E9%BE%84/"/>
-    <id>https://radiastu.com/2016/09/14/淘汰人的从来都是工具，不是年龄/</id>
+    <title>灵感并不那么值钱</title>
+    <link href="https://radiastu.com/2016/09/14/%E7%81%B5%E6%84%9F%E5%B9%B6%E4%B8%8D%E9%82%A3%E4%B9%88%E5%80%BC%E9%92%B1/"/>
+    <id>https://radiastu.com/2016/09/14/灵感并不那么值钱/</id>
     <published>2016-09-14T02:54:04.000Z</published>
     <updated>2018-01-24T19:36:06.000Z</updated>
     
     <content type="html"><![CDATA[<script src="/assets/js/APlayer.min.js"> </script><blockquote>
-<p>汽车淘汰马车，不是因为马匹不够强壮，而是因为工具的革命性迭代。<br>一代人是怎么淘汰上一代人的？并不是因为更勤奋，更聪明，而是更乐于接受新的工具。</p>
+<p>人们对“创造性思维”的认识有三个迷信：</p>
+<ol>
+<li>创新的关键是某个绝妙的灵感</li>
+<li>灵感非常难得</li>
+<li>想法越离奇越有价值</li>
+</ol>
+<p>但真正的创造性思维不是这样的。</p>
 </blockquote>
 <a id="more"></a>
-<p>在新的工具面前，一切价值被重构，包括时间的意义和对能力的定义.</p>
-<p>每一次工具革命发生的时候，原有生态链中既得利益者往往无法适应，他们的思维和运作体系已在原有的工具系统中形成惯性，在犹豫和恐惧中，新的竞争者已经刀逼颈部。</p>
-<p><strong>Lin的观点：</strong></p>
-<blockquote>
-<p>不禁想起《三体》中的”技术爆炸”</p>
-<blockquote>
-<p>“人类从狩猎时代到农业时代，用了十几万个地球年时间；从农业时代到工业时代用了几千地球年；而由工业时代到原子时代，只用了二百地球年；之后，仅用了几十个地球年，人类就进入了信息时代。”</p>
+<h3 id="伟大的发现都是“慢慢地”得出来的"><a href="#伟大的发现都是“慢慢地”得出来的" class="headerlink" title="伟大的发现都是“慢慢地”得出来的"></a>伟大的发现都是“慢慢地”得出来的</h3><blockquote>
+<p>当牛顿看到苹果落地发现万有引力之前，就有多少人有过万有引力的设想，我们有充分理由推测牛顿的引力思想是“学”来的——借鉴前人的想法，使用了前人的数据，然后做出了无数计算验证。</p>
+<p>在门捷列夫提出元素周期表之前，给元素分类已是显学，英国化学家纽兰兹已经发现用原子量大小进行排序具有明显的周期性，并把这种周期性称为“八音律”，这已经非常接近门捷列夫的周期表了。</p>
 </blockquote>
-<p>在现代社会，人类的科技呈<strong>指数型</strong>发展。这个时代的工具衰老速度一定快于人的年龄的衰老。所以，我们要增强自己的适应能力，用积极的心态去接受不断更新的工具</p>
-</blockquote>
-<p><code>观点：by吴晓波
-改编：我</code></p>
+<p>伟大的发现并不是一蹴而就的，而是一系列小想法慢慢连接起来的结果。研究一个问题开始有个模糊的直觉，选择一个方向往下走，随着研究深入，新想法连接起来，得到新事实支持，慢慢长大。就像阿基米德的“尤里卡时刻”，伟大的突破是慢慢直觉积累到一定程度导致的。</p>
+<h3 id="别指望灵感，指望汗水"><a href="#别指望灵感，指望汗水" class="headerlink" title="别指望灵感，指望汗水"></a>别指望灵感，指望汗水</h3><p>灵感并不想人们想象的那样值钱。不管是科学家，艺术家还是企业家，都会产生各种想法，也许一百个里面只有一个最后证明是有用的。只要你愿意把想法一个个拿来尝试，失败就是你的日常生活，成功则是失败的副产品。</p>
+<h3 id="真正的创造力要求正确，有用"><a href="#真正的创造力要求正确，有用" class="headerlink" title="真正的创造力要求正确，有用"></a>真正的创造力要求正确，有用</h3><p><strong>真正的职业选手所做的大部分日常的创新，都是在当前基础上的改进。</strong></p>
+<p><strong>有价值的“创造性思维”必须是“生之有根，长之靠谱”。所以，鼓励“创造性思维”应当鼓励尝试，鼓励失败，而不是鼓励妄想。</strong></p>
+<p><code>观点：万维钢</code></p>
 ]]></content>
     
     <summary type="html">
     
       &lt;blockquote&gt;
-&lt;p&gt;汽车淘汰马车，不是因为马匹不够强壮，而是因为工具的革命性迭代。&lt;br&gt;一代人是怎么淘汰上一代人的？并不是因为更勤奋，更聪明，而是更乐于接受新的工具。&lt;/p&gt;
+&lt;p&gt;人们对“创造性思维”的认识有三个迷信：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;创新的关键是某个绝妙的灵感&lt;/li&gt;
+&lt;li&gt;灵感非常难得&lt;/li&gt;
+&lt;li&gt;想法越离奇越有价值&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;但真正的创造性思维不是这样的。&lt;/p&gt;
 &lt;/blockquote&gt;
     
     </summary>
